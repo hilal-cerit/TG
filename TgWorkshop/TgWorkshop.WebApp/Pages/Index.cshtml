@@ -1,0 +1,67 @@
+﻿@page
+@using TgWorkshop.WebAPI.Models
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
+<style>
+     body {
+         margin-top: 20px;
+         background: #f1f2f7;
+     }
+
+    .column left {
+        width:25%;
+        padding-bottom:25px;
+        padding-right:25px;
+    }
+
+    .column right{
+        width:75%;
+       length:100%;
+    }
+   
+     
+</style>
+<div class="column left" style="background-color:#ffff00;">
+
+</div>
+<div class="column right" style="background-color:#bbb;">
+                <h2>Product</h2>
+                <input type="text" id="Price" />
+                <br />
+                       <input type="submit" id="GetProduct" value="GetProduct" />
+                <table>
+                    <td>
+                    <tr><p>Product Name:<strong id="ProductName"></strong> </p></tr>
+                     <tr><p>Product Description:<strong id="ProductDescription"></strong></p></tr>
+                    <tr><p>Price:<strong id="Price"> </strong></p></tr>
+                    </td>
+                </table>
+            </div>
+        </div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#GetAll").click(function () {
+            var Price = $("#Price").val();
+            $.ajax({
+                    url: 'https://localhost:44326/api/Product/' + Price,
+                type: 'POST',
+                data: "{}", 
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                
+                success: function (data) {
+                    $("#ProductName").html(data.Name);
+                    $("#ProductDescription").html(data.Description);
+                    $("#Price").html(data.Price);
+                  
+                }
+            });
+        });
+    });
+</script>
